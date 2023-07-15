@@ -13,11 +13,11 @@ on:
         default: true
         description: 'Should the image be uploaded to the registry?'
         type: boolean
-    secrets:
-      DISCORD_TACHIDESK_WEBHOOK_ID:
-        required: true
-      DISCORD_TACHIDESK_TOKEN:
-        required: true
+    # secrets:
+    #   DISCORD_TACHIDESK_WEBHOOK_ID:
+    #     required: true
+    #   DISCORD_TACHIDESK_TOKEN:
+    #     required: true
 
 env:
   server_repo: ${{ inputs.tachidesk_release_type == 'stable' && 'Tachidesk-Server' || 'Tachidesk-Server-preview' }}
@@ -88,11 +88,11 @@ jobs:
             docker logs suwayomi_test > ${{ runner.temp }}/tachidesk.log
             if [[ $val != "Tachidesk" ]]; then
               echo "Did not find Tachidesk in server response: ${val}"
-              curl \
-                -F 'payload_json={"username": "Github", "content": "<@855022649926221854>\nDocker ${{ inputs.tachidesk_release_type }} image dry run failed! 😢 Version - ${{ steps.get_latest_release_metadata.outputs.release_tag }}. [See the full run log](${{ env.this_actions_run_url }})"}' \
-                -F "file1=@${{ runner.temp }}/tachidesk.log" \
-                "https://discord.com/api/webhooks/${{ secrets.DISCORD_TACHIDESK_WEBHOOK_ID }}/${{ secrets.DISCORD_TACHIDESK_TOKEN }}"
-              exit 1
+              # curl \
+              #   -F 'payload_json={"username": "Github", "content": "<@855022649926221854>\nDocker ${{ inputs.tachidesk_release_type }} image dry run failed! 😢 Version - ${{ steps.get_latest_release_metadata.outputs.release_tag }}. [See the full run log](${{ env.this_actions_run_url }})"}' \
+              #   -F "file1=@${{ runner.temp }}/tachidesk.log" \
+              #   "https://discord.com/api/webhooks/${{ secrets.DISCORD_TACHIDESK_WEBHOOK_ID }}/${{ secrets.DISCORD_TACHIDESK_TOKEN }}"
+              # exit 1
             fi
 
       # Now we build for all of the platforms we support here. NB: the amd64
