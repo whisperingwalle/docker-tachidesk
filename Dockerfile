@@ -28,8 +28,8 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Create a user to run as
-RUN groupadd --gid 1000 suwayomi && \
-    useradd  --uid 1000 --gid suwayomi --no-log-init suwayomi && \
+RUN groupadd --gid 100 suwayomi && \
+    useradd  --uid 1029 --gid suwayomi --no-log-init suwayomi && \
     mkdir -p /home/suwayomi && \
     chown -R suwayomi:suwayomi /home/suwayomi
 USER suwayomi
