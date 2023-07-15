@@ -30,7 +30,7 @@ RUN apt-get update && \
 # Create a user to run as
 RUN useradd  --uid 1029 --gid 100 --no-log-init suwayomi && \
     mkdir -p /home/suwayomi && \
-    chown -R suwayomi:suwayomi /home/suwayomi
+    chown -R 1029:100 /home/suwayomi
 USER suwayomi
 WORKDIR /home/suwayomi
 
